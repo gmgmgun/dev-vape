@@ -4,26 +4,15 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-interface useSignUpPropType {
-  user: UserType;
-}
+export default function useSignUp() {
+  const navigate = useNavigate();
 
-export default function useSignUp({ user }: useSignUpPropType) {
-  const navigte = useNavigate();
-
-  const signUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    // 이메일 형식 유효성 검사 필요
-
-    // 비밀번호 유효성 검사 필요
-
+  const signUp = async (userData: UserType) => {
     try {
-      console.log(user.email, user.password);
       const { user: firebaseUser } = await createUserWithEmailAndPassword(
         auth,
-        user.email,
-        user.password
+        userData.email,
+        userData.password
       );
 
       if (firebaseUser) {
@@ -32,17 +21,18 @@ export default function useSignUp({ user }: useSignUpPropType) {
         await setDoc(
           userRef,
           {
-            ...user,
+            ...userData,
             id: firebaseUser.uid,
+            createdAt: new Date(),
+            updatedAt: new Date(),
           },
           { merge: true }
         );
       }
 
-      navigte('/login');
+      navigate('/login');
     } catch (error) {
-      console.log(error);
-      // 중복된 이메일 필터링 필요
+      console.error('Signup error:', error);
     }
   };
 
