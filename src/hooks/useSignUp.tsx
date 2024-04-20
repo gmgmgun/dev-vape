@@ -1,6 +1,6 @@
 import { auth, db } from '@/firebase';
-import { UserType } from '@/models/type';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { UserType } from '@/types/User';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,10 @@ export default function useSignUp() {
         userData.email,
         userData.password
       );
+
+      await updateProfile(firebaseUser, {
+        displayName: userData.nickname,
+      });
 
       if (firebaseUser) {
         const userRef = doc(db, 'user', firebaseUser.uid);

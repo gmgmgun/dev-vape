@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { UserType } from '@/models/type';
+import { UserType } from '@/types/User';
 
 interface SignUpFormProps {
   signUp: (user: UserType) => Promise<void>;
@@ -43,7 +43,7 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
           placeholder="Nickname"
           {...register('nickname', { required: '닉네임은 필수 항목입니다.' })}
         />
-        {errors.password && (
+        {errors.nickname && (
           <span className="error">{errors.nickname?.message}</span>
         )}
         <Button id="signUpButton" type="submit">
