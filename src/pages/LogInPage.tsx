@@ -3,7 +3,7 @@ import useLogIn from '@/hooks/useLogIn';
 import LogInForm from '@/components/form/LogInForm';
 
 export default function LogInPage() {
-  const logIn = useLogIn(); // 로그인 로직 훅
+  const logIn = useLogIn();
 
   return (
     <>
@@ -28,3 +28,5 @@ export default function LogInPage() {
     </>
   );
 }
+
+LogInPage.displayName = 'LogIn';
