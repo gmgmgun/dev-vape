@@ -1,5 +1,6 @@
 import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 
+
 export type ErrorCode = {
   [key: string]: string;
 };
@@ -17,3 +18,4 @@ export function validateLogIn(
 
   return null;
 }
+

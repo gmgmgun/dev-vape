@@ -13,10 +13,11 @@ export default function useLogin() {
     const { email, password } = data;
 
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      const docRef = doc(db, 'user', user.user.uid);
+      const loginInfo = await signInWithEmailAndPassword(auth, email, password);
+      const docRef = doc(db, 'user', loginInfo.user.uid);
       const docSnap = await getDoc(docRef);
       setUser(docSnap.data() as UserType);
+
       navigate('/');
     } catch (error) {
       console.error(error);
