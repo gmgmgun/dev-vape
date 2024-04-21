@@ -1,5 +1,5 @@
 import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
-
+import { z } from 'zod';
 
 export type ErrorCode = {
   [key: string]: string;
@@ -19,3 +19,11 @@ export function validateLogIn(
   return null;
 }
 
+const Login = z.object({
+  name: z.string(),
+  height: z.number(),
+  age: z.number(),
+  phoneNum: z.string(),
+  homePhoneNum: z.string().optional(),
+  isCompletedMilitaryService: z.boolean(),
+});

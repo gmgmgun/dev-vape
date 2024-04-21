@@ -1,13 +1,13 @@
 import { auth, db } from '@/firebase';
-import { UserType } from '@/types/User';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { IFormData } from '@/components/form/formConfig';
 
 export default function useSignUp() {
   const navigate = useNavigate();
 
-  const signUp = async (userData: UserType) => {
+  const signUp = async (userData: IFormData) => {
     try {
       const { user: firebaseUser } = await createUserWithEmailAndPassword(
         auth,
@@ -25,7 +25,10 @@ export default function useSignUp() {
         await setDoc(
           userRef,
           {
-            ...userData,
+            email: userData.email,
+            password: userData.password,
+            nickname: userData.nickname,
+            isSeller: false,
             id: firebaseUser.uid,
             createdAt: new Date(),
             updatedAt: new Date(),
