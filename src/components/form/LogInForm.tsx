@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { logInFormSchema } from '@/utils/validations';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IFormData, inputs } from './formConfig';
 
 interface LogInFormProps {
@@ -12,7 +14,9 @@ export default function LogInForm({ logIn }: LogInFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>();
+  } = useForm<IFormData>({
+    resolver: zodResolver(logInFormSchema),
+  });
 
   return (
     <form
@@ -27,7 +31,7 @@ export default function LogInForm({ logIn }: LogInFormProps) {
               id={input.id}
               type={input.type}
               placeholder={input.placeholder}
-              {...register(input.id, input.validation)}
+              {...register(input.id)}
             />
             {errors[input.id] && (
               <span className="error">{errors[input.id]?.message}</span>

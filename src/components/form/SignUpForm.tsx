@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { z } from 'zod';
+import { signUpFormSchema } from '@/utils/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IFormData, inputs } from './formConfig';
 
@@ -15,7 +15,7 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormData>({
-    resolver: zodResolver(formDataSchema),
+    resolver: zodResolver(signUpFormSchema),
   });
 
   const onSubmit = handleSubmit((data) => {
@@ -31,7 +31,7 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
               id={input.id}
               type={input.type}
               placeholder={input.placeholder}
-              {...register(input.id, input.validation)}
+              {...register(input.id)}
             />
             {errors[input.id] && (
               <span className="error">{errors[input.id]?.message}</span>
@@ -45,23 +45,3 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
     </section>
   );
 }
-
-const passwordValidationSchema = z
-  .string()
-  .min(1, '비밀번호는 필수 항목입니다.')
-  .refine(
-    (val) =>
-      /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{10,}/.test(val) ||
-      /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/.test(val),
-    {
-      message:
-        '비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자를 모두 포함해야 합니다.',
-    }
-  );
-
-const formDataSchema = z.object({
-  email: z.string().email('유효한 이메일 주소를 입력해주세요.'),
-  password: passwordValidationSchema,
-  passwordConfirm: z.string().min(1, '비밀번호 확인은 필수 항목입니다.'),
-  nickname: z.string().min(1, '닉네임은 필수 항목입니다.'),
-});
