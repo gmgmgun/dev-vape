@@ -14,7 +14,9 @@ const Home = React.lazy(() => import('@/pages/HomePage'));
 
 export default function AppRoute() {
   const user = useUserStore((state) => state.user);
+  console.log(user);
   const userState = user ? user.isSeller : null;
+  console.log(userState);
   return (
     <>
       <BrowserRouter>

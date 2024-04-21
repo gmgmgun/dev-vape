@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { UserType } from '@/types/User';
+import { signUpFormSchema } from '@/utils/validations';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { IFormData, inputs } from './formConfig';
 
 interface SignUpFormProps {
-  signUp: (user: UserType) => Promise<void>;
+  signUp: (data: IFormData) => Promise<void>;
 }
 
 export default function SignUpForm({ signUp }: SignUpFormProps) {
@@ -12,7 +14,9 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserType>();
+  } = useForm<IFormData>({
+    resolver: zodResolver(signUpFormSchema),
+  });
 
   const onSubmit = handleSubmit((data) => {
     signUp(data);
@@ -21,31 +25,19 @@ export default function SignUpForm({ signUp }: SignUpFormProps) {
   return (
     <section>
       <form onSubmit={onSubmit} className="flex flex-col gap-5 mb-12">
-        <Input
-          id="email"
-          type="email"
-          placeholder="Email"
-          {...register('email', { required: '이메일은 필수 항목입니다.' })}
-        />
-        {errors.email && <span className="error">{errors.email.message}</span>}
-        <Input
-          id="password"
-          type="password"
-          placeholder="Password"
-          {...register('password', { required: '비밀번호는 필수 항목입니다.' })}
-        />
-        {errors.password && (
-          <span className="error">{errors.password.message}</span>
-        )}
-        <Input
-          id="nickname"
-          type="nickname"
-          placeholder="Nickname"
-          {...register('nickname', { required: '닉네임은 필수 항목입니다.' })}
-        />
-        {errors.nickname && (
-          <span className="error">{errors.nickname?.message}</span>
-        )}
+        {inputs.map((input) => (
+          <div key={input.id}>
+            <Input
+              id={input.id}
+              type={input.type}
+              placeholder={input.placeholder}
+              {...register(input.id)}
+            />
+            {errors[input.id] && (
+              <span className="error">{errors[input.id]?.message}</span>
+            )}
+          </div>
+        ))}
         <Button id="signUpButton" type="submit">
           가입
         </Button>
