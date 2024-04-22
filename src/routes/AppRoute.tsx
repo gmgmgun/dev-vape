@@ -50,7 +50,7 @@ export default function AppRoute() {
             }
           />
           <Route
-            path="/cart/:userId"
+            path="/cart"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <PrivateRoute userState={userState}>
