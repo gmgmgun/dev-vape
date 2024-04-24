@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SellerPage = () => {
-  return <div>Seller</div>;
+  return <div></div>;
 };
 
 export default SellerPage;
