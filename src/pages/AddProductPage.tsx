@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ProductRegistration() {
+export const AddProductPage = () => {
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -121,6 +121,4 @@ function ProductRegistration() {
       </form>
     </div>
   );
-}
-
-export default ProductRegistration;
+};

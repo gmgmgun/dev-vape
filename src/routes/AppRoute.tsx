@@ -4,11 +4,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './route.constant';
 import { withAggregate } from './withAggregate';
 
+// 프라이빗 / 퍼블릭 라우트 구분
+// 프라이빗 / 퍼블릭 -> 로그인 유무 및 사용자
+// 로그인 유무 - > 로그인됏냐? -> 판매자/구매자
 export default function AppRoute() {
   return (
     <BrowserRouter>
       <Routes>
-        {Object.entries(ROUTES).map(([key, { path, isAuth, route }]) => {
+        {Object.entries(ROUTES).map(([key, { path, route }]) => {
           const LazyComponent = React.lazy(
             () => import(`@/pages/${route}.tsx`)
           );
@@ -18,11 +21,7 @@ export default function AppRoute() {
               path={path}
               element={
                 <Suspense fallback={<div>Loading...</div>}>
-                  {isAuth ? (
-                    withAggregate({ component: <LazyComponent />, type: key })
-                  ) : (
-                    <LazyComponent />
-                  )}
+                  {withAggregate({ component: <LazyComponent />, type: key })}
                 </Suspense>
               }
             />

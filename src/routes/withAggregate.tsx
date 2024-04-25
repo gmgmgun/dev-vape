@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUserStore } from '@/store/useUserStore';
 import { ROUTES } from './route.constant';
+import { Navigate } from 'react-router-dom';
 
 type AggregateComponentProps = {
   component: React.ReactNode;
@@ -13,32 +14,28 @@ export const withAggregate = ({ component, type }: AggregateComponentProps) => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
-  const user = useUserStore((state) => state.user);
+  const user = useUserStore((state) => state.user); // null
   const isSeller = user?.isSeller;
 
-  const shouldRenderComponent = () => {
-    switch (type) {
-      case 'CART':
-        return !isSeller;
-      case 'CUSTOMER':
-        return !isSeller;
-      case 'SELLER':
-        return isSeller;
-      default:
-        return false;
+  if (type == 'LOGIN' || type == 'SIGNUP') {
+    if (user) {
+      return <Navigate to="/" />;
     }
-  };
-
-  if (shouldRenderComponent()) {
-    return component;
-  } else {
-    return (
-      <p>
-        이 섹션에 대한 접근 권한이 없습니다. 자세한 정보는 고객 지원에
-        문의하세요.
-      </p>
-    );
   }
+
+  if (type === 'CART' || type === 'CUSTOMER') {
+    if (!isSeller) {
+      return component;
+    }
+  }
+
+  if (type === 'SELLER') {
+    if (isSeller) {
+      return component;
+    }
+  }
+
+  return <Navigate to="/" />;
 };
 
 // type withAggregateProps = {

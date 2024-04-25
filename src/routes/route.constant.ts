@@ -1,28 +1,25 @@
 export const ROUTES: Routes = {
-  HOME: { path: '/', isAuth: false, route: 'HomePage' },
-  SIGNUP: { path: '/signup', isAuth: false, route: 'SignUpPage' },
-  LOGIN: { path: '/login', isAuth: false, route: 'HomePage' },
+  HOME: { path: '/', route: 'HomePage' },
+  SIGNUP: { path: '/signup', route: 'SignUpPage' },
+  LOGIN: { path: '/login', route: 'LogInPage' },
   PRODUCT: {
     path: '/product/:productId',
-    isAuth: false,
-    route: '@/pages/ProductPage',
+    route: 'ProductPage',
   },
   CUSTOMER: {
     path: '/customer/:customerId',
-    isAuth: true,
-    route: '@/pages/CustomerPage',
+    route: 'CustomerPage',
   },
   SELLER: {
     path: '/seller/:sellerId',
-    isAuth: true,
-    route: '@/pages/SellerPage',
+    route: 'SellerPage',
   },
-  CART: { path: '/cart/:cartId', isAuth: true, route: 'CartPage' },
+  CART: { path: '/cart/:cartId', route: 'CartPage' },
+  ADDPRODUCT: { path: '/seller/:sellerId/addProduct', route: 'AddProductPage' },
 } as const;
 
 interface Route {
   path: string;
-  isAuth: boolean;
   route: string;
 }
 
