@@ -138,10 +138,10 @@ export default function FormProduct({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Category</SelectLabel>
-              <SelectItem value="Classic">Classic</SelectItem>
-              <SelectItem value="Sports">Sports</SelectItem>
-              <SelectItem value="Adventure">Adventure</SelectItem>
-              <SelectItem value="Scooter">Scooter</SelectItem>
+              <SelectItem value="입호흡">입호흡 액상</SelectItem>
+              <SelectItem value="폐호흡">폐호흡 액상</SelectItem>
+              <SelectItem value="기기">모드 / 기기</SelectItem>
+              <SelectItem value="코일">코일 / 팟 / 기타</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
-import Check from '@/assets/icon/Check.svg';
-import ArrowUp from '@/assets/icon/ArrowUp.svg';
-import ArrowDown from '@/assets/icon/ArrowDown.svg';
+import check from '@/assets/icon/check.svg';
+import arrowUp from '@/assets/icon/arrow-up.svg';
+import arrowDown from '@/assets/icon/arrow-down.svg';
 
 import { cn } from '@/lib/utils';
 
@@ -28,7 +28,7 @@ const SelectTrigger = React.forwardRef<
     {children}
     <SelectPrimitive.Icon asChild>
       <div>
-        <img src={ArrowDown} alt="ArrowDown" />
+        <img src={arrowDown} alt="arrow-down" />
       </div>
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
@@ -48,7 +48,7 @@ const SelectScrollUpButton = React.forwardRef<
     {...props}
   >
     <div>
-      <img src={ArrowUp} alt="ArrowUp" />
+      <img src={arrowUp} alt="arrow-up" />
     </div>
   </SelectPrimitive.ScrollUpButton>
 ));
@@ -67,7 +67,7 @@ const SelectScrollDownButton = React.forwardRef<
     {...props}
   >
     <div>
-      <img src={ArrowDown} alt="ArrowDown" />
+      <img src={arrowDown} alt="arrow-down" />
     </div>
   </SelectPrimitive.ScrollDownButton>
 ));
@@ -133,7 +133,7 @@ const SelectItem = React.forwardRef<
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
         <div>
-          <img src={Check} alt="Check" />
+          <img src={check} alt="check" />
         </div>
       </SelectPrimitive.ItemIndicator>
     </span>
