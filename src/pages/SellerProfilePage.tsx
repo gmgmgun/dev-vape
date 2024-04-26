@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useUserStore } from '@/store/useUserStore';
 import { useInfiniteQuery } from 'react-query';
 import { fetchInfiniteProduct } from '@/queries/fetchInfiniteProduct';
@@ -12,7 +12,6 @@ import LinkContainer from '@/components/container/LinkContainer';
 const SellerProfilePage = () => {
   const params = useParams();
   const paramsId = params.id;
-  const navigate = useNavigate();
   const { ref, inView } = useInView();
   const category: string = '';
   const option: string = '';
@@ -43,7 +42,7 @@ const SellerProfilePage = () => {
       <section className="flex justify-start items-start gap-24 mt-20 ml-10 mb-20">
         {/* 프로필 편집 */}
         <LinkContainer
-          path={`/editprofile/${user?.id}`}
+          path={`/edit-profile/${user?.id}`}
           title={'Edit Profile'}
           discription={'Edit your Profile'}
         />

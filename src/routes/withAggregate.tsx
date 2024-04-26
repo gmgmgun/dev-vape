@@ -17,22 +17,16 @@ const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
   const user = useUserStore((state) => state.user);
   const isSeller = user?.isSeller;
 
-  if (type == 'LOGIN' || type == 'SIGNUP') {
-    if (user) {
-      return <Navigate to="/" />;
-    }
+  if ((type == 'LOGIN' || type == 'SIGNUP') && user) {
+    return <Navigate to="/" />;
   }
 
-  if (type === 'CART' || type === 'CUSTOMER') {
-    if (isSeller) {
-      return <Navigate to="/" />;
-    }
+  if ((type === 'CART' || type === 'CUSTOMER') && isSeller) {
+    return <Navigate to="/" />;
   }
 
-  if (type === 'SELLER') {
-    if (!isSeller) {
-      return <Navigate to="/" />;
-    }
+  if (type === 'SELLER' && !isSeller) {
+    return <Navigate to="/" />;
   }
 
   return component;
