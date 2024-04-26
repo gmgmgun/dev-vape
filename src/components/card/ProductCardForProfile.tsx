@@ -10,7 +10,7 @@ const ProductCardForProfile = ({ product }: ProductCardProps) => {
   const user = useUserStore((state) => state.user);
   return (
     <Link
-      to={`/seller/${user?.id}/manage-product/${product.docId}`}
+      to={`/seller/${user?.id}/edit-product/${product.docId}`}
       className="h-44 w-full min-w-60 flex border rounded-2xl hover:scale-105 transition duration-300"
     >
       <section className="w-1/3 h-full">
