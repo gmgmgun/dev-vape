@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUserStore } from '@/store/useUserStore';
 import { useInfiniteQuery } from 'react-query';
-// import fetchInfinityProduct from '@/query/product/fetchInfinityProduct';
+import { fetchInfiniteProduct } from '@/queries/fetchInfiniteProduct';
 import { useInView } from 'react-intersection-observer';
 import { ProductWithId } from '@/types/Product';
 import ProductCardForProfile from '@/components/card/ProductCardForProfile';
@@ -22,7 +22,7 @@ const SellerProfilePage = () => {
   // react-query
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery(
     ['product', user?.id, paramsId, category, option, direction],
-    ({ pageParam, queryKey }) => fetchInfinityProduct({ pageParam, queryKey }),
+    ({ pageParam, queryKey }) => fetchInfiniteProduct({ pageParam, queryKey }),
     {
       getNextPageParam: (lastPage) => lastPage?.lastVisible,
     }
