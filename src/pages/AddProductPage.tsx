@@ -13,15 +13,13 @@ import { useState } from 'react';
 import useDeleteImage from '@/hooks/useDeleteImage';
 
 // import { useNavigate, useParams } from 'react-router';
+import close from '@/assets/icon/close.svg';
 import Alert from '@/components/modal/Alert';
 import { useUserStore } from '@/store/useUserStore';
-import { useParams } from 'react-router-dom';
 
 const AddProductPage = () => {
   const user = useUserStore((state) => state.user);
-  const params = useParams();
-  // const paramsId = params.id;
-  // const navigate = useNavigate();
+
   const [openAlert, setOpenAlert] = useState<boolean>(false);
 
   const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
@@ -86,7 +84,7 @@ const AddProductPage = () => {
                 onClick={() => deleteImageHandler(image)}
                 className="absolute -top-2 -right-2 bg-red-500 rounded-full"
               >
-                <div>닫기</div>
+                <img src={close} alt="close" width={20} height={20} />
               </button>
             </section>
           ))}
