@@ -12,7 +12,7 @@ export const ROUTES: Routes = {
   },
   SELLER: {
     path: '/seller/:sellerId',
-    route: 'SellerPage',
+    route: 'SellerProfilePage',
   },
   ADDPRODUCT: {
     path: '/seller/:sellerId/add-product/',

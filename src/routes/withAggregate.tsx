@@ -14,9 +14,8 @@ export const withAggregate = ({ component, type }: AggregateComponentProps) => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
-  const user = useUserStore((state) => state.user); // null
+  const user = useUserStore((state) => state.user);
   const isSeller = user?.isSeller;
-  // console.log(user, isSeller);
 
   if (type == 'LOGIN' || type == 'SIGNUP') {
     if (user) {

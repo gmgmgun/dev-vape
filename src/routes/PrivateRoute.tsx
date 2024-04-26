@@ -6,8 +6,6 @@ interface PrivateRouteProps {
   userState: boolean | null | undefined;
 }
 
-// withAggregate
-
 export const PrivateRoute = ({ children, userState }: PrivateRouteProps) => {
   const location = useLocation();
   const path = location.pathname;

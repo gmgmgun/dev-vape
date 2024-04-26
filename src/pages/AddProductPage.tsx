@@ -22,6 +22,7 @@ const AddProductPage = () => {
 
   const [openAlert, setOpenAlert] = useState<boolean>(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
 
   const [errorProduct, setErrorProduct] = useState<string | null>('');
