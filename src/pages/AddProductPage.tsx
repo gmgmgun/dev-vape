@@ -1,124 +1,125 @@
-import React, { useState } from 'react';
+import AddImageButton from '@/components/button/AddImageButton';
+import ProductForm from '@/components/form/ProductForm';
 
-export const AddProductPage = () => {
-  const [product, setProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category: '',
-    image: null,
+import useAddProduct from '@/hooks/useAddProduct';
+import useChangeInput from '@/hooks/useChangeInput';
+import useUploadImage from '@/hooks/useUploadImage';
+
+import { ProductWithId } from '@/types/Product';
+import { UserType } from '@/types/User';
+import { ERROR_MESSAGES } from '@/utils/validations';
+import { serverTimestamp } from 'firebase/firestore';
+import { useState } from 'react';
+import useDeleteImage from '@/hooks/useDeleteImage';
+
+// import { useNavigate, useParams } from 'react-router';
+import Alert from '@/components/modal/Alert';
+import { useUserStore } from '@/store/useUserStore';
+import { useParams } from 'react-router-dom';
+
+const AddProductPage = () => {
+  const user = useUserStore((state) => state.user);
+  const params = useParams();
+  // const paramsId = params.id;
+  // const navigate = useNavigate();
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
+
+  const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
+
+  const [errorProduct, setErrorProduct] = useState<string | null>('');
+
+  const [product, setProduct] = useState<ProductWithId>({
+    docId: '',
+    id: '',
+    sellerId: '',
+    productName: '',
+    productPrice: 0,
+    productQuantity: 0,
+    productDescription: '',
+    productCategory: '',
+    productImage: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
+  // 상품 상태 변경
+  const { onChangeInput } = useChangeInput(
+    user as UserType,
+    product,
+    setProduct
+  );
 
-  const handleImageChange = (e) => {
-    setProduct({ ...product, image: e.target.files[0] });
-  };
+  // 이미지 등록
+  const { addImageHandler } = useUploadImage(
+    user as UserType,
+    setProduct,
+    setErrorProduct
+  );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(product);
-    // Here, you would typically handle the form submission, e.g., sending data to a server
-  };
+  // 이미지 삭제
+  const { deleteImageHandler } = useDeleteImage(setProduct, setImagesToDelete);
+
+  // 상품 등록
+  const { addProductHandler, pathUrl, bodyText } = useAddProduct(
+    user as UserType,
+    product,
+    setErrorProduct,
+    setOpenAlert
+  );
 
   return (
-    <div className="container mx-auto px-4">
-      <form onSubmit={handleSubmit} className="max-w-xl mx-auto py-10">
-        <h1 className="text-2xl font-semibold mb-5">Register New Product</h1>
+    <>
+      {/* body  */}
+      <div className="w-full flex flex-col justify-center items-center">
+        {/* 사진 첨부 */}
+        <main className="w-4/5 h-52 grid grid-cols-4 items-center gap-3 px-5 relative border mb-10">
+          {product.productImage.map((image) => (
+            <section key={image} className="w-full h-4/5 max-h-52 relative ">
+              <div className="w-full h-full overflow-hidden">
+                <img
+                  src={image}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <button
+                onClick={() => deleteImageHandler(image)}
+                className="absolute -top-2 -right-2 bg-red-500 rounded-full"
+              >
+                <div>닫기</div>
+              </button>
+            </section>
+          ))}
+          <AddImageButton />
+          {errorProduct == 'errorProductImage' ? (
+            <div className="text-left mt-1 ml-2 text-xs text-red-500">
+              {ERROR_MESSAGES[errorProduct]}
+            </div>
+          ) : null}
+        </main>
 
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
+        {/* 입력 */}
+        <ProductForm
+          onChangeInput={onChangeInput}
+          addImageHandler={addImageHandler}
+          product={product}
+          setProduct={setProduct}
+          addProductHandler={addProductHandler}
+          errorCode={errorProduct}
+        />
 
-        <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="price"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Price ($)
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Category
-          </label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={product.category}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="image"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleImageChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+        {openAlert && (
+          <Alert>
+            <Alert.Content>
+              <Alert.Header header="Add Product" />
+              <Alert.Body bodyText={bodyText} />
+              <Alert.Footer pathUrl={pathUrl} />
+            </Alert.Content>
+          </Alert>
+        )}
+      </div>
+    </>
   );
 };
+
+export default AddProductPage;

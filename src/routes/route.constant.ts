@@ -14,8 +14,11 @@ export const ROUTES: Routes = {
     path: '/seller/:sellerId',
     route: 'SellerPage',
   },
+  ADDPRODUCT: {
+    path: '/seller/:sellerId/add-product/',
+    route: 'AddProductPage',
+  },
   CART: { path: '/cart/:cartId', route: 'CartPage' },
-  ADDPRODUCT: { path: '/seller/:sellerId/addProduct', route: 'AddProductPage' },
 } as const;
 
 interface Route {

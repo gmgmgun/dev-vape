@@ -4,9 +4,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './route.constant';
 import { withAggregate } from './withAggregate';
 
-// 프라이빗 / 퍼블릭 라우트 구분
-// 프라이빗 / 퍼블릭 -> 로그인 유무 및 사용자
-// 로그인 유무 - > 로그인됏냐? -> 판매자/구매자
 export default function AppRoute() {
   return (
     <BrowserRouter>

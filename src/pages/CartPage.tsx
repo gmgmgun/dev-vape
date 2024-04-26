@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CartPage() {
+const CartPage = () => {
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Product 1', quantity: 2, price: 20.0 },
     { id: 2, name: 'Product 2', quantity: 1, price: 50.0 },
@@ -90,6 +90,6 @@ function CartPage() {
       </div>
     </div>
   );
-}
+};
 
 export default CartPage;

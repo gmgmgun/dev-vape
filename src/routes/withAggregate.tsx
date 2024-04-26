@@ -16,6 +16,7 @@ export const withAggregate = ({ component, type }: AggregateComponentProps) => {
 const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
   const user = useUserStore((state) => state.user); // null
   const isSeller = user?.isSeller;
+  // console.log(user, isSeller);
 
   if (type == 'LOGIN' || type == 'SIGNUP') {
     if (user) {
@@ -24,18 +25,18 @@ const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
   }
 
   if (type === 'CART' || type === 'CUSTOMER') {
-    if (!isSeller) {
-      return component;
+    if (isSeller) {
+      return <Navigate to="/" />;
     }
   }
 
   if (type === 'SELLER') {
-    if (isSeller) {
-      return component;
+    if (!isSeller) {
+      return <Navigate to="/" />;
     }
   }
 
-  return <Navigate to="/" />;
+  return component;
 };
 
 // type withAggregateProps = {
