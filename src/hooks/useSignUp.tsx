@@ -26,7 +26,6 @@ export default function useSignUp() {
           userRef,
           {
             email: userData.email,
-            password: userData.password,
             nickname: userData.nickname,
             isSeller: false,
             id: firebaseUser.uid,

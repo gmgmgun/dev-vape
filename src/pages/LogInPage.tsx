@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import useLogIn from '@/hooks/useLogIn';
 import LogInForm from '@/components/form/LogInForm';
 
-export default function LogInPage() {
+const LogInPage = () => {
   const logIn = useLogIn();
 
   return (
@@ -27,6 +27,8 @@ export default function LogInPage() {
       </main>
     </>
   );
-}
+};
 
-LogInPage.displayName = 'LogIn';
+export default LogInPage;
+
+// LogInPage.displayName = 'LogIn';

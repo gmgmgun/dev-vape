@@ -1,94 +1,129 @@
 import React from 'react';
 import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { PrivateRoute } from './PrivateRoute';
-import { useUserStore } from '@/store/useUserStore';
-
-const SignUp = React.lazy(() => import('@/pages/SignUpPage'));
-const LogIn = React.lazy(() => import('@/pages/LogInPage'));
-const Cart = React.lazy(() => import('@/pages/CartPage'));
-const Product = React.lazy(() => import('@/pages/ProductPage'));
-const Customer = React.lazy(() => import('@/pages/CustomerPage'));
-const Seller = React.lazy(() => import('@/pages/SellerPage'));
-const Home = React.lazy(() => import('@/pages/HomePage'));
+import { ROUTES } from './route.constant';
+import { withAggregate } from './withAggregate';
 
 export default function AppRoute() {
-  const user = useUserStore((state) => state.user);
-  console.log(user);
-  const userState = user ? user.isSeller : null;
-  console.log(userState);
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Home />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <PrivateRoute userState={userState}>
-                  <SignUp />
-                </PrivateRoute>
-              </Suspense>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <PrivateRoute userState={userState}>
-                  <LogIn />
-                </PrivateRoute>
-              </Suspense>
-            }
-          />
-          <Route
-            path="/cart/:userId"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <PrivateRoute userState={userState}>
-                  <Cart />
-                </PrivateRoute>
-              </Suspense>
-            }
-          />
-          <Route
-            path="/product/:productId"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Product />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/customer/:customerId"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <PrivateRoute userState={userState}>
-                  <Customer />
-                </PrivateRoute>
-              </Suspense>
-            }
-          />
-          <Route
-            path="/seller/:sellerId"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <PrivateRoute userState={userState}>
-                  <Seller />
-                </PrivateRoute>
-              </Suspense>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        {Object.entries(ROUTES).map(([key, { path, route }]) => {
+          const LazyComponent = React.lazy(
+            () => import(`@/pages/${route}.tsx`)
+          );
+          return (
+            <Route
+              key={key}
+              path={path}
+              element={
+                // 로딩 컴포넌트 추상화 해야함.
+                <Suspense fallback={<div>Loading...</div>}>
+                  {withAggregate({ component: <LazyComponent />, page: key })}
+                </Suspense>
+              }
+            />
+          );
+        })}
+      </Routes>
+    </BrowserRouter>
   );
 }
+{
+  /* <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                <SignUp />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                {/* 고차함수나 boolean */
+}
+{
+  /* <LogIn />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                <Cart />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/product/:productId"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Product />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/customer/:customerId"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                <Customer />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/seller/:sellerId"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                <Seller />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/seller/add-product"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <PrivateRoute userState={userState}>
+                <Seller />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+      </Routes> */
+}
+//     </BrowserRouter>
+//   );
+// }
+
+// // Container
+// const Providers = ({ children }: React.PropsWithChildren) => {
+//   // const providers = {
+//   //   router: BrowserRouter,
+//   //   //... 알아서 매핑
+
+//   // }
+
+//   // return Object.entries(providers).reduceRight()// ... GPT한테 완성해달라하셈.
+//   return <BrowserRouter>{children}</BrowserRouter>;
+// };
