@@ -5,27 +5,27 @@ import { Navigate } from 'react-router-dom';
 
 type AggregateComponentProps = {
   component: React.ReactNode;
-  type: keyof typeof ROUTES;
+  page: keyof typeof ROUTES;
 };
 
-export const withAggregate = ({ component, type }: AggregateComponentProps) => {
-  return <AggregateComponent component={component} type={type} />;
+export const withAggregate = ({ component, page }: AggregateComponentProps) => {
+  return <AggregateComponent component={component} page={page} />;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-const AggregateComponent = ({ component, type }: AggregateComponentProps) => {
+const AggregateComponent = ({ component, page }: AggregateComponentProps) => {
   const user = useUserStore((state) => state.user);
   const isSeller = user?.isSeller;
 
-  if ((type == 'LOGIN' || type == 'SIGNUP') && user) {
+  if ((page == 'LOGIN' || page == 'SIGNUP') && user) {
     return <Navigate to="/" />;
   }
 
-  if ((type === 'CART' || type === 'CUSTOMER') && isSeller) {
+  if ((page === 'CART' || page === 'CUSTOMER') && isSeller) {
     return <Navigate to="/" />;
   }
 
-  if (type === 'SELLER' && !isSeller) {
+  if (page === 'SELLER' && !isSeller) {
     return <Navigate to="/" />;
   }
 

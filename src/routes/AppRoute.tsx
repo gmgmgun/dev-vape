@@ -17,8 +17,9 @@ export default function AppRoute() {
               key={key}
               path={path}
               element={
+                // 로딩 컴포넌트 추상화 해야함.
                 <Suspense fallback={<div>Loading...</div>}>
-                  {withAggregate({ component: <LazyComponent />, type: key })}
+                  {withAggregate({ component: <LazyComponent />, page: key })}
                 </Suspense>
               }
             />

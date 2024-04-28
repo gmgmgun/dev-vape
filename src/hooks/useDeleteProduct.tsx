@@ -1,7 +1,7 @@
 import { db } from '@/firebase';
 import { Product } from '@/types/Product';
 import { UserType } from '@/types/User';
-import { AlertInfoType, ParamsType } from '@/page/seller/ManageProduct';
+import { AlertInfoType, ParamsType } from '@/pages/EditProductPage';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, getStorage, ref } from 'firebase/storage';
 import React from 'react';
