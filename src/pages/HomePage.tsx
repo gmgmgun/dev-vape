@@ -1,12 +1,13 @@
-import React from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { useUserStore } from '@/store/useUserStore';
 import { useNavigate } from 'react-router-dom';
+import { categories } from '@/types/Category';
+import { CategoryContainer } from '@/components/container/CategoryContainer';
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
-  console.log(user?.id);
   const navigate = useNavigate();
+
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
@@ -37,6 +38,11 @@ const HomePage = () => {
       <button onClick={handleLogout}>Logout 버튼</button>
       <button onClick={handleAddProduct}>AddProduct 가기</button>
       <button onClick={handleSeller}>Seller 가기</button>
+      <main className="flex flex-col gap-10">
+        {categories.map((category) => (
+          <CategoryContainer key={category.id} category={category} />
+        ))}
+      </main>
     </div>
   );
 };
