@@ -9,11 +9,7 @@ import {
   where,
 } from 'firebase/firestore';
 
-export default async function fetchProducts({
-  queryKey,
-}: {
-  queryKey: unknown[];
-}) {
+export async function fetchProducts({ queryKey }: { queryKey: unknown[] }) {
   const [_key, field_key, value, count] = queryKey as [
     string,
     string,
@@ -23,19 +19,20 @@ export default async function fetchProducts({
 
   try {
     const collectionRef = collection(db, _key);
+    let q;
 
     if (value !== undefined) {
-      const q = query(
+      q = query(
         collectionRef,
         where(field_key, '==', value),
         orderBy('updatedAt', 'desc')
       );
     } else {
-      const q = query(collectionRef, orderBy('updatedAt', 'desc'));
+      q = query(collectionRef, orderBy('updatedAt', 'desc'));
     }
 
     if (count) {
-      const q = query(q, limit(count));
+      q = query(q, limit(count));
     }
 
     const qSnapshot = await getDocs(q);

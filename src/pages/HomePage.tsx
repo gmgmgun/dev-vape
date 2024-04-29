@@ -1,26 +1,12 @@
-import React from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { useUserStore } from '@/store/useUserStore';
 import { useNavigate } from 'react-router-dom';
+import { categories } from '@/types/Category';
+import { CategoryContainer } from '@/components/container/CategoryContainer';
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
-
-  const categories = [
-    '입호흡 액상',
-    '폐호흡 액상',
-    '모드 / 기기',
-    '코일 / 팟 / 기타',
-  ];
-
-  const queries = categories.reduce((acc, category) => {
-    acc[category] = useQuery(
-      ['product', 'productCategory', category, 8],
-      fetchProducts
-    );
-    return acc;
-  }, {});
 
   const handleLogout = () => {
     const auth = getAuth();
@@ -52,6 +38,11 @@ const HomePage = () => {
       <button onClick={handleLogout}>Logout 버튼</button>
       <button onClick={handleAddProduct}>AddProduct 가기</button>
       <button onClick={handleSeller}>Seller 가기</button>
+      <main className="flex flex-col gap-10">
+        {categories.map((category) => (
+          <CategoryContainer key={category.id} category={category} />
+        ))}
+      </main>
     </div>
   );
 };

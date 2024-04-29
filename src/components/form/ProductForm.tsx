@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ProductWithId } from '@/types/Product';
 import { useParams } from 'react-router-dom';
 import { ERROR_MESSAGES } from '@/utils/validations';
+import { categories } from '@/utils/constants';
 
 interface FormProductProps {
   onChangeInput: (
@@ -138,10 +139,11 @@ export default function FormProduct({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Category</SelectLabel>
-              <SelectItem value="입호흡">입호흡 액상</SelectItem>
-              <SelectItem value="폐호흡">폐호흡 액상</SelectItem>
-              <SelectItem value="기기">모드 / 기기</SelectItem>
-              <SelectItem value="코일">코일 / 팟 / 기타</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category.id} value={category.korean}>
+                  {category.korean}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
