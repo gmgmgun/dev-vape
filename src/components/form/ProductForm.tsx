@@ -13,9 +13,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { ProductWithId } from '@/types/Product';
 import { useParams } from 'react-router-dom';
 import { ERROR_MESSAGES } from '@/utils/validations';
-import { categories } from '@/utils/constants';
+import { categories } from '@/types/Category';
 
-interface FormProductProps {
+interface ProductFormProps {
   onChangeInput: (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -32,7 +32,7 @@ interface FormProductProps {
   errorCode: string | null;
 }
 
-export default function FormProduct({
+export default function ProductForm({
   onChangeInput,
   addImageHandler,
   product,
@@ -41,7 +41,7 @@ export default function FormProduct({
   deleteProductHandler,
   editProductHandler,
   errorCode,
-}: FormProductProps) {
+}: ProductFormProps) {
   const params = useParams();
   return (
     <form className="w-1/2">
