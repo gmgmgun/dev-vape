@@ -5,8 +5,23 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
-  console.log(user?.id);
   const navigate = useNavigate();
+
+  const categories = [
+    '입호흡 액상',
+    '폐호흡 액상',
+    '모드 / 기기',
+    '코일 / 팟 / 기타',
+  ];
+
+  const queries = categories.reduce((acc, category) => {
+    acc[category] = useQuery(
+      ['product', 'productCategory', category, 8],
+      fetchProducts
+    );
+    return acc;
+  }, {});
+
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
