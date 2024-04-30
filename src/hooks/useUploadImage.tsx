@@ -8,6 +8,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export default function useUploadImage(
   user: UserType,
+  product: ProductWithId,
   setProduct: (
     value: ProductWithId | ((prevState: ProductWithId) => ProductWithId)
   ) => void,
@@ -33,7 +34,7 @@ export default function useUploadImage(
 
         const imgRef = ref(
           storage,
-          `${user?.id}/${compressedFile.name}/${timestamp}`
+          `${user?.id}/${product.docId}/${timestamp}`
         );
 
         // 이미지 파일을 Firebase Storage에 업로드하고 다운로드 URL을 얻는 프로미스 생성

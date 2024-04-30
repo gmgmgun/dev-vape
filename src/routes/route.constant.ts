@@ -23,6 +23,7 @@ export const ROUTES: Routes = {
     route: 'EditProductPage',
   },
   CART: { path: '/cart/:cartId', route: 'CartPage' },
+  CATEGORY: { path: '/category/:categoryId', route: 'CategoryPage' },
 } as const;
 
 interface Route {
