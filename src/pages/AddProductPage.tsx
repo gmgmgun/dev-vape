@@ -51,6 +51,7 @@ const AddProductPage = () => {
   // 이미지 등록
   const { addImageHandler } = useUploadImage(
     user as UserType,
+    product,
     setProduct,
     setErrorProduct
   );

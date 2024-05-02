@@ -11,27 +11,26 @@ import {
   startAfter,
   where,
 } from 'firebase/firestore';
-import { QueryFunctionContext } from 'react-query';
+import { QueryFunctionContext } from '@tanstack/react-query';
 
 export const fetchInfiniteProduct = async ({
   pageParam = null,
   queryKey,
 }: {
-  pageParam: QueryFunctionContext<'', DocumentSnapshot> | null;
+  pageParam: QueryFunctionContext<[], DocumentSnapshot> | null;
   queryKey: unknown[];
 }) => {
   // queryKey 변수 선언
-  const [_key, user, params, category, option, direction = 'desc'] =
-    queryKey as [string, string, string, string, string, OrderByDirection];
-
+  const [_key, category, option, direction = 'desc'] = queryKey as [
+    string,
+    string,
+    string,
+    OrderByDirection
+  ];
+  console.log(category);
   // 실행
   try {
     let q = query(collection(db, _key), limit(4));
-
-    // 판매자 본인 확인
-    if (user == params) {
-      q = query(q, where('sellerId', '==', user));
-    }
 
     // 카테고리
     if (category) {
@@ -43,14 +42,11 @@ export const fetchInfiniteProduct = async ({
       case 'price':
         q = query(q, orderBy('productPrice', direction));
         break;
-      // case "likes": -> 색인 생성 완료 추후 사용
-      //   q = query(q, orderBy("likes", direction));
-      //   break;
       case 'updatedAt':
         q = query(q, orderBy('updatedAt', direction));
         break;
       default:
-        q = query(q, orderBy('updatedAt', 'desc'));
+        q = query(q, orderBy('updatedAt', direction));
         break;
     }
 
@@ -66,7 +62,6 @@ export const fetchInfiniteProduct = async ({
       const product = doc.data() as Product;
       return { docId: doc.id, ...product } as ProductWithId;
     });
-    console.log(data);
     return { data, lastVisible };
   } catch (error) {
     console.log(error);
