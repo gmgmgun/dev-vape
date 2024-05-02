@@ -10,7 +10,7 @@ import ProductCardForHome from '@/components/card/ProductCardForHome';
 import { UseQueryResult } from 'react-query';
 import { useParams } from 'react-router-dom';
 
-export default function RecommendContainer({
+export default function RecommendListContainer({
   products,
 }: {
   products: UseQueryResult<ProductWithId[] | undefined, unknown>;

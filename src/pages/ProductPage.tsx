@@ -6,6 +6,8 @@ import arrowCircleUp from '@/assets/icon/arrow-circle-up.svg';
 import arrowCircleDown from '@/assets/icon/arrow-circle-down.svg';
 import ProductDetailButton from '@/components/button/AddImageButton';
 import DetailImageContainer from '@/components/container/DetailImageContainer';
+import RecommendListContainer from '@/components/container/RecommendListContainer';
+import { fetchProducts } from '@/queries/fetchProducts';
 
 export default function ProductDetail() {
   const params = useParams();
@@ -13,6 +15,11 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState<number>(1);
 
   const { data: product } = useQuery(['product', productId], fetchProduct);
+
+  const recommend = useQuery(
+    ['product', 'productCategory', product?.productCategory, 6],
+    fetchProducts
+  );
 
   if (!product) {
     return <div>Loading...</div>;
@@ -64,7 +71,7 @@ export default function ProductDetail() {
         </section>
         <section>
           <div className="text-left text-xl ml-3">Recommend</div>
-          <RecommendContainer products={recommend} />
+          <RecommendListContainer products={recommend} />
         </section>
       </main>
     </div>
