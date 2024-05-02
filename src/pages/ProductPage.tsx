@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import fetchProduct from '@/queries/fetchProduct';
 import arrowCircleUp from '@/assets/icon/arrow-circle-up.svg';
 import arrowCircleDown from '@/assets/icon/arrow-circle-down.svg';
+// 장바구니 기능 구현 후 버튼 변경 필요
 import ProductDetailButton from '@/components/button/AddImageButton';
 import DetailImageContainer from '@/components/container/DetailImageContainer';
 import RecommendListContainer from '@/components/container/RecommendListContainer';
@@ -26,7 +27,6 @@ export default function ProductDetail() {
   }
   return (
     <div className="w-full flex justify-center items-center mt-10">
-      {/* body  */}
       <main className="w-full flex flex-col justify-center items-center gap-20">
         <section className="flex w-full justify-center gap-20">
           <section className="h-full">
@@ -34,7 +34,6 @@ export default function ProductDetail() {
           </section>
 
           <section className="flex flex-col justify-between">
-            {/* 상품 정보 */}
             <section className="flex flex-col text-left gap-5">
               <div className="text-4xl">{product.productName}</div>
               <div className="text-base">{product.productDescription}</div>
@@ -51,21 +50,19 @@ export default function ProductDetail() {
                     }
                   >
                     <div>
-                      <img src={arrowCircleUp} alt="ArrowCircleUp" />
+                      <img src={arrowCircleUp} alt="arrow-circle-up" />
                     </div>
                   </button>
                   <button
                     onClick={() => quantity > 1 && setQuantity(quantity - 1)}
                   >
                     <div>
-                      <img src={arrowCircleDown} alt="ArrowCircleDown" />
+                      <img src={arrowCircleDown} alt="arrow-circle-down" />
                     </div>
                   </button>
                 </div>
               </section>
             </section>
-
-            {/* 버튼 */}
             <ProductDetailButton />
           </section>
         </section>
