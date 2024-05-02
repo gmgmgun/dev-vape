@@ -68,16 +68,14 @@ export default function useUploadImage(
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    const selectImgList = event.target.files; // 선택된 파일 리스트
+    const selectImgList = event.target.files;
 
     if (selectImgList) {
-      // 이미지 최대 4개까지 제한
       if (selectImgList.length > 4) {
         alert('이미지는 최대 4개까지만 업로드할 수 있습니다.');
         return;
       }
 
-      // 선택된 파일 리스트를 이미지 업로드 mutation에 전달
       addImageMutation.mutate(selectImgList);
     }
   };

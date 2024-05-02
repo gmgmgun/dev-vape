@@ -8,20 +8,25 @@ import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 // import SortButton from '@/components/button/SortButton';
 import { useUserStore } from '@/store/useUserStore';
+import { categories } from '@/types/Category';
 
 export default function ProductListContainer() {
-  const user = useUserStore((state) => state.user);
   const params = useParams();
-  console.log('params:', params);
+  const categoryUrl = params.categoryId;
+  const categoryName = categories.find(
+    (category) => category.url === categoryUrl
+  )?.korean;
+  const user = useUserStore((state) => state.user);
+  // console.log('params:', params);
   const queryClient = useQueryClient();
   const { ref, inView } = useInView();
-
+  console.log(categoryName);
   const [option, setOption] = useState<string>('');
   const [direction, setDirection] = useState<OrderByDirection>('desc');
 
   // react-query
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery(
-    ['product', params, option, direction],
+    ['product', categoryName, option, direction],
     ({ pageParam, queryKey }) => fetchInfiniteProduct({ pageParam, queryKey }),
     {
       getNextPageParam: (lastPage) => lastPage?.lastVisible,
