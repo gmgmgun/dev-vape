@@ -4,10 +4,8 @@ import { ProductWithId } from '@/types/Product';
 import { OrderByDirection } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery, useQueryClient } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-// import SortButton from '@/components/button/SortButton';
-import { useUserStore } from '@/store/useUserStore';
 import { categories } from '@/types/Category';
 
 export default function ProductListContainer() {
@@ -16,15 +14,14 @@ export default function ProductListContainer() {
   const categoryName = categories.find(
     (category) => category.url === categoryUrl
   )?.korean;
-  const user = useUserStore((state) => state.user);
-  // console.log('params:', params);
-  const queryClient = useQueryClient();
   const { ref, inView } = useInView();
   console.log(categoryName);
+
+  // 구현해야 할 부분
   const [option, setOption] = useState<string>('');
   const [direction, setDirection] = useState<OrderByDirection>('desc');
 
-  // react-query
+  // react-query -> 모듈화 필요
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery(
     ['product', categoryName, option, direction],
     ({ pageParam, queryKey }) => fetchInfiniteProduct({ pageParam, queryKey }),
@@ -39,21 +36,6 @@ export default function ProductListContainer() {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
-
-  // const sortOption = (option: string, direction: OrderByDirection) => {
-  //   setOption(option);
-  //   setDirection(direction);
-
-  //   // 쿼리데이터 무효 -> 다시 가져오기
-  //   queryClient.invalidateQueries([
-  //     'product',
-  //     user?.id,
-  //     params.category,
-  //     params.category,
-  //     option,
-  //     direction,
-  //   ]);
-  // };
 
   return (
     <>
