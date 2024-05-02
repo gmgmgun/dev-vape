@@ -62,6 +62,10 @@ export default function ProductDetail() {
             <ProductDetailButton />
           </section>
         </section>
+        <section>
+          <div className="text-left text-xl ml-3">Recommend</div>
+          <RecommendContainer products={recommend} />
+        </section>
       </main>
     </div>
   );
