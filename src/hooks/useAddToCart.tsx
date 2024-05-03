@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-export default function useAddCart(
+export default function useAddToCart(
   product: ProductWithId | undefined,
   quantity: number
 ) {
@@ -33,7 +33,6 @@ export default function useAddCart(
       if (qSnapshot.docs.length > 0) {
         console.log('sdsds');
       } else {
-        // 장바구니에 추가
         const cartRef = doc(collection(db, 'cart'));
         await setDoc(cartRef, {
           userId: user?.id,
@@ -49,7 +48,6 @@ export default function useAddCart(
 
   const addCartMutation = useMutation(addCartHandler, {
     onSuccess: () => {
-      // setIsAdded(true);
       queryClient.invalidateQueries(['cart', user?.id]);
     },
   });
