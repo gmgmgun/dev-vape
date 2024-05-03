@@ -22,7 +22,7 @@ export const ROUTES: Routes = {
     path: '/seller/:sellerId/edit-product/:productId',
     route: 'EditProductPage',
   },
-  CART: { path: '/cart/:cartId', route: 'CartPage' },
+  CART: { path: '/cart/:customerId', route: 'CartPage' },
   CATEGORY: { path: '/category/:categoryId', route: 'CategoryPage' },
 } as const;
 
