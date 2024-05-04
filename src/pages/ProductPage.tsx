@@ -5,12 +5,14 @@ import fetchProduct from '@/queries/fetchProduct';
 import arrowCircleUp from '@/assets/icon/arrow-circle-up.svg';
 import arrowCircleDown from '@/assets/icon/arrow-circle-down.svg';
 // 장바구니 기능 구현 후 버튼 변경 필요
-import ProductDetailButton from '@/components/button/AddImageButton';
+import AddToCartButton from '@/components/button/AddToCartButton';
 import DetailImageContainer from '@/components/container/DetailImageContainer';
 import RecommendListContainer from '@/components/container/RecommendListContainer';
 import { fetchProducts } from '@/queries/fetchProducts';
+import { useUserStore } from '@/store/useUserStore';
 
 export default function ProductDetail() {
+  const user = useUserStore((state) => state.user);
   const params = useParams();
   const { productId } = params;
   const [quantity, setQuantity] = useState<number>(1);
@@ -63,7 +65,11 @@ export default function ProductDetail() {
                 </div>
               </section>
             </section>
-            <ProductDetailButton />
+            <AddToCartButton
+              user={user}
+              product={product}
+              quantity={quantity}
+            />
           </section>
         </section>
         <section>

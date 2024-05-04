@@ -4,15 +4,16 @@ import { FieldValue, Timestamp } from 'firebase/firestore';
 export interface Product {
   id?: string;
   sellerId: string;
-  productName: string;
-  productPrice: number;
-  productQuantity: number;
-  productDescription: string;
-  productCategory: string;
-  productImage: string[];
+  name: string;
+  price: number;
+  quantity: number;
+  description: string;
+  category: string;
+  image: string[];
   createdAt: FieldValue | Timestamp;
   updatedAt: FieldValue | Timestamp;
 }
+
 export interface ProductWithId extends Product {
   docId: string;
 }

@@ -31,7 +31,7 @@ export default function useAddToCart(
       const qSnapshot = await getDocs(q);
 
       if (qSnapshot.docs.length > 0) {
-        console.log('sdsds');
+        console.log('장바구니 추가 성공');
       } else {
         const cartRef = doc(collection(db, 'cart'));
         await setDoc(cartRef, {
@@ -51,5 +51,6 @@ export default function useAddToCart(
       queryClient.invalidateQueries(['cart', user?.id]);
     },
   });
+
   return { addCartMutation };
 }

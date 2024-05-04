@@ -4,19 +4,17 @@ import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 import useAddToCart from '@/hooks/useAddToCart';
 
-interface ProductDetailButtonProp {
+interface AddToCartButtonProp {
   user: UserType | null | undefined;
   product: ProductWithId;
-  isInCart: boolean | undefined;
   quantity: number;
 }
 
-export default function ProductDetailButton({
+export default function AddToCartButton({
   user,
   product,
-  isInCart,
   quantity,
-}: ProductDetailButtonProp) {
+}: AddToCartButtonProp) {
   // 장바구니 추가
   const { addCartMutation } = useAddToCart(product, quantity);
 
@@ -45,17 +43,8 @@ export default function ProductDetailButton({
   // 로그인한 경우
   const CheckUser = () => {
     // 잔여 수량이 0일 경우
-    if (product.productQuantity == 0) {
+    if (product.quantity == 0) {
       return <div className="text-3xl text-red-400">Sold out</div>;
-    }
-
-    // 장바구니에 상품이 있을 시
-    if (isInCart) {
-      return (
-        <Link to={`/cart/${user?.id}`} className="w-full">
-          <Button>See the Cart</Button>
-        </Link>
-      );
     }
 
     // 구매 가능한 경우
@@ -64,7 +53,7 @@ export default function ProductDetailButton({
 
   // 로그인하지 않은 경우
   const CheckNoUser = () => {
-    if (product.productQuantity == 0) {
+    if (product.quantity == 0) {
       return <div className="text-3xl text-red-400">Sold out</div>;
     } else {
       <Link to="/signup" className="w-full">

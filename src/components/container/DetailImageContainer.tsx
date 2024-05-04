@@ -8,14 +8,12 @@ interface DetailImageContainerProps {
 export default function DetailImageContainer({
   product,
 }: DetailImageContainerProps) {
-  const [mainImage, setMainImage] = useState<string>(product.productImage[0]);
-  const [subImage, setSubImage] = useState<string[]>(
-    product.productImage.slice(1)
-  );
+  const [mainImage, setMainImage] = useState<string>(product.image[0]);
+  const [subImage, setSubImage] = useState<string[]>(product.image.slice(1));
 
   useEffect(() => {
-    setMainImage(product.productImage[0]);
-    setSubImage(product.productImage.slice(1));
+    setMainImage(product.image[0]);
+    setSubImage(product.image.slice(1));
   }, [product]);
 
   const imageChangeHandler = useCallback(

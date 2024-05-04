@@ -15,8 +15,8 @@ const ProductCardForProfile = ({ product }: ProductCardProps) => {
     >
       <section className="w-1/3 h-full">
         <img
-          src={product.productImage[0]}
-          alt={product.productName}
+          src={product.image[0]}
+          alt={product.name}
           loading="lazy"
           className="w-full h-full object-cover rounded-l-2xl"
         />
@@ -25,17 +25,17 @@ const ProductCardForProfile = ({ product }: ProductCardProps) => {
       <section className="w-2/3 h-full flex justify-between  flex-col p-3">
         <div>
           <div className="text-left text-lg font-bold review">
-            {product.productName}
+            {product.name}
           </div>
           <div className="text-left text-sm text-gray-400 review">
-            {product.productDescription}
+            {product.description}
           </div>
         </div>
 
         <div className="flex justify-between text-left text-xs">
-          <p>KRW {product.productPrice}</p>
+          <p>KRW {product.price}</p>
           <p>
-            Quantity : <span>{product.productQuantity}</span>
+            Quantity : <span>{product.quantity}</span>
           </p>
         </div>
       </section>

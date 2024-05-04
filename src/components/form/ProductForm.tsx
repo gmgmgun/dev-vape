@@ -63,7 +63,7 @@ export default function ProductForm({
           <Input
             type="text"
             placeholder="상품 이름"
-            value={product.productName}
+            value={product.name}
             name="productName"
             className=""
             onChange={onChangeInput}
@@ -80,7 +80,7 @@ export default function ProductForm({
           <Input
             type="number"
             placeholder="상품 가격"
-            value={product.productPrice}
+            value={product.price}
             name="productPrice"
             className=""
             onChange={onChangeInput}
@@ -97,7 +97,7 @@ export default function ProductForm({
           <Input
             type="number"
             placeholder="상품 수량"
-            value={product.productQuantity}
+            value={product.quantity}
             name="productQuantity"
             className=""
             onChange={onChangeInput}
@@ -114,7 +114,7 @@ export default function ProductForm({
           <Textarea
             placeholder="상품 설명"
             name="productDescription"
-            value={product.productDescription}
+            value={product.description}
             className=""
             onChange={onChangeInput}
             required
@@ -127,10 +127,9 @@ export default function ProductForm({
         </div>
 
         <Select
-          value={product.productCategory}
+          value={product.category}
           onValueChange={(value) => (
-            setProduct({ ...product, productCategory: value }),
-            console.log(product)
+            setProduct({ ...product, category: value }), console.log(product)
           )}
         >
           <SelectTrigger className="">
