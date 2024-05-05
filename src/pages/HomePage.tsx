@@ -6,12 +6,13 @@ import { CategoryContainer } from '@/components/container/CategoryContainer';
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
-      .then(() => console.log('Logged out successfully!'))
+      .then(() => setUser(null))
       .catch((error) => console.log(error));
   };
 

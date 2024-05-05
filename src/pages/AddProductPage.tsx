@@ -31,22 +31,18 @@ const AddProductPage = () => {
     docId: '',
     id: '',
     sellerId: '',
-    productName: '',
-    productPrice: 0,
-    productQuantity: 0,
-    productDescription: '',
-    productCategory: '',
-    productImage: [],
+    name: '',
+    price: 0,
+    quantity: 0,
+    description: '',
+    category: '',
+    image: [],
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
 
   // 상품 상태 변경
-  const { onChangeInput } = useChangeInput(
-    user as UserType,
-    product,
-    setProduct
-  );
+  const onChangeInput = useChangeInput(user as UserType, product, setProduct);
 
   // 이미지 등록
   const { addImageHandler } = useUploadImage(
@@ -73,17 +69,17 @@ const AddProductPage = () => {
       <div className="w-full flex flex-col justify-center items-center">
         {/* 사진 첨부 */}
         <main className="w-4/5 h-52 grid grid-cols-4 items-center gap-3 px-5 relative border mb-10">
-          {product.productImage.map((image) => (
-            <section key={image} className="w-full h-4/5 max-h-52 relative ">
+          {product.image.map((img) => (
+            <section key={img} className="w-full h-4/5 max-h-52 relative ">
               <div className="w-full h-full overflow-hidden">
                 <img
-                  src={image}
+                  src={img}
                   alt="image"
                   className="w-full h-full object-cover"
                 />
               </div>
               <button
-                onClick={() => deleteImageHandler(image)}
+                onClick={() => deleteImageHandler(img)}
                 className="absolute -top-2 -right-2 bg-red-500 rounded-full"
               >
                 <img src={close} alt="close" width={20} height={20} />

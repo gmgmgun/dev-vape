@@ -15,7 +15,6 @@ export default function ProductListContainer() {
     (category) => category.url === categoryUrl
   )?.korean;
   const { ref, inView } = useInView();
-  console.log(categoryName);
 
   // 구현해야 할 부분
   const [option, setOption] = useState<string>('');

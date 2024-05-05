@@ -43,11 +43,7 @@ export default function ManageProduct() {
   const { product, setProduct } = useFetchProduct(productId as string);
 
   // 상품 상태 변경 -> client
-  const { onChangeInput } = useChangeInput(
-    user as UserType,
-    product,
-    setProduct
-  );
+  const onChangeInput = useChangeInput(user as UserType, product, setProduct);
 
   // 이미지 업로드 -> client
   const { addImageHandler } = useUploadImage(

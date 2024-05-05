@@ -1,5 +1,5 @@
-import useDeleteCart from '@/hook/cart/useDeleteCart';
-import useUpdateCart from '@/hook/cart/useUpdateCart';
+import useDeleteCart from '@/hooks/useDeleteFromCart';
+import useUpdateCart from '@/hooks/useUpdateCart';
 import { CartType } from '@/types/Cart';
 import fetchProduct from '@/queries/fetchProduct';
 import { useEffect, useState } from 'react';
@@ -42,7 +42,7 @@ export default function CartCard({
   const { updateCartMutation } = useUpdateCart();
 
   // 장바구니 수량 수정
-  const [quantity, setQuantity] = useState<number>(item.productQuantity);
+  const [quantity, setQuantity] = useState<number>(item.quantity);
 
   useEffect(() => {
     updateCartMutation.mutate({
@@ -63,8 +63,8 @@ export default function CartCard({
     >
       <section className="w-1/3 h-full">
         <img
-          src={product?.productImage[0]}
-          alt={product?.productName}
+          src={product?.image[0]}
+          alt={product?.name}
           loading="lazy"
           className="w-full h-full object-cover rounded-l-2xl"
         />
@@ -73,19 +73,17 @@ export default function CartCard({
       <section className="w-2/3 h-full flex justify-between flex-col p-3">
         <div>
           <div className="text-left text-lg font-bold review">
-            {product?.productName}
+            {product?.name}
           </div>
           <div className="text-left text-sm text-gray-400 review">
-            {product?.productDescription}
+            {product?.description}
           </div>
         </div>
 
         <div className="flex justify-between items-center text-left text-xs">
-          <div>
-            KRW {product ? product?.productPrice * item.productQuantity : null}
-          </div>
+          <div>KRW {product ? product?.price * item.quantity : null}</div>
           <div className="flex justify-center items-center gap-2">
-            <div>Quantity : {item.productQuantity}</div>
+            <div>Quantity : {item.quantity}</div>
             {/* 수량 증감 장바구니 페이지에서만 가능 */}
             {location.pathname.includes('payment') ? null : (
               <>

@@ -14,7 +14,7 @@ export default function useDeleteImage(
 
     setProduct((prev: ProductWithId) => ({
       ...prev,
-      productImage: prev.productImage.filter(
+      image: prev.image.filter(
         (prevImageUrl: string) => prevImageUrl !== imageUrl
       ),
     }));

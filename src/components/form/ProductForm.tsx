@@ -49,7 +49,7 @@ export default function ProductForm({
         <input
           type="file"
           id="inputFile"
-          name="productImage"
+          name="image"
           // accept=".jpg, .jpeg, .png"
           multiple
           onChange={addImageHandler}
@@ -64,7 +64,7 @@ export default function ProductForm({
             type="text"
             placeholder="상품 이름"
             value={product.name}
-            name="productName"
+            name="name"
             className=""
             onChange={onChangeInput}
             required
@@ -81,7 +81,7 @@ export default function ProductForm({
             type="number"
             placeholder="상품 가격"
             value={product.price}
-            name="productPrice"
+            name="price"
             className=""
             onChange={onChangeInput}
             required
@@ -98,7 +98,7 @@ export default function ProductForm({
             type="number"
             placeholder="상품 수량"
             value={product.quantity}
-            name="productQuantity"
+            name="quantity"
             className=""
             onChange={onChangeInput}
             required
@@ -113,7 +113,7 @@ export default function ProductForm({
         <div>
           <Textarea
             placeholder="상품 설명"
-            name="productDescription"
+            name="description"
             value={product.description}
             className=""
             onChange={onChangeInput}
