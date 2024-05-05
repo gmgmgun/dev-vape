@@ -43,15 +43,12 @@ export default function ManageProduct() {
   const { product, setProduct } = useFetchProduct(productId as string);
 
   // 상품 상태 변경 -> client
-  const { onChangeInput } = useChangeInput(
-    user as UserType,
-    product,
-    setProduct
-  );
+  const onChangeInput = useChangeInput(user as UserType, product, setProduct);
 
   // 이미지 업로드 -> client
   const { addImageHandler } = useUploadImage(
     user as UserType,
+    product,
     setProduct,
     setErrorProduct
   );
@@ -84,17 +81,17 @@ export default function ManageProduct() {
       <main className="w-full flex flex-col justify-center items-center pt-10">
         {/* 사진 첨부 */}
         <section className="w-4/5 h-52 grid grid-cols-4 justify-center items-center gap-3 px-5 relative border mb-10">
-          {product.productImage.map((image) => (
-            <div key={image} className="w-full h-4/5 relative ">
+          {product.image.map((img) => (
+            <div key={img} className="w-full h-4/5 relative ">
               <div className="w-full h-full max-h-52 overflow-hidden">
                 <img
-                  src={image}
+                  src={img}
                   alt="image"
                   className="w-full h-full object-cover"
                 />
               </div>
               <button
-                onClick={() => deleteImageHandler(image)}
+                onClick={() => deleteImageHandler(img)}
                 className="absolute -top-2 -right-2 bg-red-500 rounded-full"
               >
                 <div>

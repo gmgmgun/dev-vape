@@ -27,12 +27,12 @@ export function validateProduct(product: Product | null): string | null {
   // product가 null인 경우 즉시 함수를 종료
   if (!product) return '';
 
-  if (product.productImage.length < 1) return 'errorProductImage';
-  if (product.productName === '') return 'errorProductName';
-  if (product.productPrice === 0) return 'errorProdcutPrice';
-  if (product.productQuantity === 0) return 'errorProdcutQuantity';
-  if (product.productDescription === '') return 'errorProductDescription';
-  if (product.productCategory === '') return 'errorProductCategory';
+  if (product.image.length < 1) return 'errorProductImage';
+  if (product.name === '') return 'errorProductName';
+  if (product.price === 0) return 'errorProdcutPrice';
+  if (product.quantity === 0) return 'errorProdcutQuantity';
+  if (product.description === '') return 'errorProductDescription';
+  if (product.category === '') return 'errorProductCategory';
 
   return null;
 }

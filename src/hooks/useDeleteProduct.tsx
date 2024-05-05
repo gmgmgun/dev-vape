@@ -26,7 +26,7 @@ export default function useDeleteProduct(
         const docRef = doc(db, 'product', params.productId);
 
         // 이미지
-        const deleteImages = product.productImage.map(async (imgUrl) => {
+        const deleteImages = product.image.map(async (imgUrl) => {
           const imageRef = ref(storage, imgUrl);
           await deleteObject(imageRef);
         });

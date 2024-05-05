@@ -16,6 +16,7 @@ export async function fetchProducts({ queryKey }: { queryKey: unknown[] }) {
     string,
     number
   ];
+  console.log(_key, field_key, value, count);
 
   try {
     const collectionRef = collection(db, _key);

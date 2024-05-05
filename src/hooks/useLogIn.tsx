@@ -17,7 +17,6 @@ export default function useLogin() {
       const docRef = doc(db, 'user', loginInfo.user.uid);
       const docSnap = await getDoc(docRef);
       setUser(docSnap.data() as UserType);
-
       navigate('/');
     } catch (error) {
       console.error(error);

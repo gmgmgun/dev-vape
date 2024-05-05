@@ -7,7 +7,6 @@ export default function useChangeInput(
   product: ProductWithId,
   setProduct: (value: ProductWithId) => void
 ) {
-  // 상품 상태 변경
   const onChangeInput = (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -17,9 +16,11 @@ export default function useChangeInput(
       target: { name, value },
     } = event;
 
+    // 상품 상태 변경
     if (user) {
       setProduct({ ...product, sellerId: user?.id, [name]: value });
     }
   };
-  return { onChangeInput };
+
+  return onChangeInput;
 }

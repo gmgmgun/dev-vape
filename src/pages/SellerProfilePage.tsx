@@ -34,6 +34,8 @@ const SellerProfilePage = () => {
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
+  console.log(data);
+
   return (
     <>
       <div className="w-full h-px bg-slate-300 mb-8"></div>

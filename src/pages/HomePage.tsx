@@ -6,12 +6,13 @@ import { CategoryContainer } from '@/components/container/CategoryContainer';
 
 const HomePage = () => {
   const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
-      .then(() => console.log('Logged out successfully!'))
+      .then(() => setUser(null))
       .catch((error) => console.log(error));
   };
 
@@ -33,11 +34,21 @@ const HomePage = () => {
     }
   };
 
+  const handleCart = () => {
+    const customerId = user?.id;
+    if (user && typeof customerId === 'string') {
+      navigate(`/cart/${customerId}`);
+    } else {
+      console.error('Invalid sellerId:', customerId);
+    }
+  };
+
   return (
     <div>
       <button onClick={handleLogout}>Logout 버튼</button>
       <button onClick={handleAddProduct}>AddProduct 가기</button>
       <button onClick={handleSeller}>Seller 가기</button>
+      <button onClick={handleCart}>Cart 가기</button>
       <main className="flex flex-col gap-10">
         {categories.map((category) => (
           <CategoryContainer key={category.id} category={category} />

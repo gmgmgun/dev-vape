@@ -52,7 +52,7 @@ export default function useUploadImage(
       onSuccess: (downloadImgURL) => {
         setProduct((prev: ProductWithId) => ({
           ...prev,
-          productImage: [...prev.productImage, ...downloadImgURL],
+          image: [...prev.image, ...downloadImgURL],
         }));
         setErrorProduct(null);
       },

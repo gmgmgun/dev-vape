@@ -31,16 +31,15 @@ export const fetchInfiniteProduct = async ({
   // 실행
   try {
     let q = query(collection(db, _key), limit(4));
-
     // 카테고리
     if (category) {
-      q = query(q, where('productCategory', '==', category));
+      q = query(q, where('category', '==', category));
     }
 
     // 정렬 조건
     switch (option) {
       case 'price':
-        q = query(q, orderBy('productPrice', direction));
+        q = query(q, orderBy('price', direction));
         break;
       case 'updatedAt':
         q = query(q, orderBy('updatedAt', direction));

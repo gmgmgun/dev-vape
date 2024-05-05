@@ -11,7 +11,7 @@ interface ICategoryContainer {
 
 export const CategoryContainer = ({ category }: ICategoryContainer) => {
   const query = useQuery(
-    ['product', 'productCategory', category.korean, 8],
+    ['product', 'category', category.korean, 8],
     fetchProducts
   );
   return (
