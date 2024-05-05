@@ -37,8 +37,8 @@ export default function useAddToCart(
         await setDoc(cartRef, {
           userId: user?.id,
           productId: product?.id,
-          productQuantity: quantity,
-          productPrice: product?.productPrice,
+          quantity: quantity,
+          price: product?.price,
         });
       }
     } catch (error) {
@@ -51,6 +51,5 @@ export default function useAddToCart(
       queryClient.invalidateQueries(['cart', user?.id]);
     },
   });
-
   return { addCartMutation };
 }

@@ -1,10 +1,10 @@
-import { CartType } from '@/types/Cart';
+import { ICartItem } from '@/types/Cart';
 import { useState } from 'react';
 
-export default function useSelectCart() {
-  const [selectedItems, setSelectedItems] = useState<CartType[]>([]);
+export default function useSelectFromCart() {
+  const [selectedItems, setSelectedItems] = useState<ICartItem[]>([]);
 
-  const selectHandler = (item: CartType) => {
+  const selectHandler = (item: ICartItem) => {
     // 선택한 상품 조회
     const isAlreadySelected = selectedItems.find(
       (selectedItem) => selectedItem.productId === item.productId
@@ -34,7 +34,7 @@ export default function useSelectCart() {
   };
 
   // 선택되어 있는지 확인
-  const isSelected = (item: CartType) => {
+  const isSelected = (item: ICartItem) => {
     return selectedItems.some(
       (selectedItem) => selectedItem.productId === item.productId
     );

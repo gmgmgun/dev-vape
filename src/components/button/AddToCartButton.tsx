@@ -22,7 +22,7 @@ export default function AddToCartButton({
   const CheckSeller = () => {
     // 판매자와 구매자가 다를 시
     if (product.sellerId !== user?.id) {
-      if (product.productQuantity == 0) {
+      if (product.quantity == 0) {
         return <div className="text-3xl text-red-400">Sold out</div>;
       } else {
         return <Button disabled>Add to Cart</Button>;

@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { useMutation, useQueryClient } from 'react-query';
 
-export default function useDeleteCart() {
+export default function useDeleteFromCart() {
   const user = useUserStore((state) => state.user);
   const queryClient = useQueryClient();
 

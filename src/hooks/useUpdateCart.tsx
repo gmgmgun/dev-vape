@@ -50,5 +50,5 @@ export default function useUpdateCart() {
       queryClient.invalidateQueries(['cart', user?.id]);
     },
   });
-  return { updateCartMutation };
+  return updateCartMutation;
 }
