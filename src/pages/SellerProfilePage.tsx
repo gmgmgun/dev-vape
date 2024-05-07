@@ -10,8 +10,6 @@ import { OrderByDirection } from 'firebase/firestore';
 import LinkContainer from '@/components/container/LinkContainer';
 
 const SellerProfilePage = () => {
-  const params = useParams();
-  const paramsId = params.id;
   const { ref, inView } = useInView();
   const category: string = '';
   const option: string = '';
@@ -20,7 +18,7 @@ const SellerProfilePage = () => {
 
   // react-query
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery(
-    ['product', user?.id, paramsId, category, option, direction],
+    ['product', category, option, direction],
     ({ pageParam, queryKey }) => fetchInfiniteProduct({ pageParam, queryKey }),
     {
       getNextPageParam: (lastPage) => lastPage?.lastVisible,
@@ -33,8 +31,6 @@ const SellerProfilePage = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
-
-  console.log(data);
 
   return (
     <>
