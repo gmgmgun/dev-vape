@@ -24,6 +24,7 @@ export const ROUTES: Routes = {
   },
   CART: { path: '/cart/:customerId', route: 'CartPage' },
   CATEGORY: { path: '/category/:categoryId', route: 'CategoryPage' },
+  PAYMENT: { path: '/payment/:userId', route: 'PaymentPage' },
 } as const;
 
 interface Route {

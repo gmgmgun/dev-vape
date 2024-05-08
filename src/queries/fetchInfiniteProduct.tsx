@@ -27,7 +27,7 @@ export const fetchInfiniteProduct = async ({
     string,
     OrderByDirection
   ];
-  console.log(category);
+
   // 실행
   try {
     let q = query(collection(db, _key), limit(4));

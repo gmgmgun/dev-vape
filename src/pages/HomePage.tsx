@@ -9,6 +9,10 @@ const HomePage = () => {
   const setUser = useUserStore((state) => state.setUser);
   const navigate = useNavigate();
 
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
@@ -43,12 +47,23 @@ const HomePage = () => {
     }
   };
 
+  const handlePayment = () => {
+    const customerId = user?.id;
+    if (user && typeof customerId === 'string') {
+      navigate(`/payment/${customerId}`);
+    } else {
+      console.error('Invalid sellerId:', customerId);
+    }
+  };
+
   return (
     <div>
-      <button onClick={handleLogout}>Logout 버튼</button>
-      <button onClick={handleAddProduct}>AddProduct 가기</button>
-      <button onClick={handleSeller}>Seller 가기</button>
-      <button onClick={handleCart}>Cart 가기</button>
+      <button onClick={handleLogin}>Login </button>
+      <button onClick={handleLogout}>Logout </button>
+      <button onClick={handleAddProduct}>AddProduct </button>
+      <button onClick={handleSeller}>Seller </button>
+      <button onClick={handleCart}>Cart </button>
+      <button onClick={handlePayment}>Payment </button>
       <main className="flex flex-col gap-10">
         {categories.map((category) => (
           <CategoryContainer key={category.id} category={category} />
