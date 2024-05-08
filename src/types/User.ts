@@ -5,6 +5,9 @@ export interface UserType {
   id: string;
   email: string;
   isSeller: boolean;
+  name: string;
+  phone: string;
+  address: string;
   nickname: string;
   password?: string;
   createdAt: FieldValue | Timestamp;
